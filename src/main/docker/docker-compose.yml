@@ -1,0 +1,30 @@
+version: '3.8'
+
+name: tenant-service-container
+services:
+  app:
+    image: 'quarkus/tenant-service'
+    container_name: "tenant-app"
+    ports:
+      - '8080:8080'
+    links:
+      - "tenant-db"
+    environment:
+      - DB_USER=root
+      - DB_PWD=root
+      - DB_URL=jdbc:mysql://mysql-db/tenant
+
+  tenant-db:
+    image: mysql:8.0
+    container_name: "tenant-db"
+    environment:
+      - MYSQL_DATABASE=tenant
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
+    volumes:
+      - tenant:/var/lib/mysql
+      - ./../../../db/sql/create_tenant_schemas.sql:/docker-entrypoint-initdb.d/create_tenant_schemas.sql
+volumes:
+  tenant:
+    driver: local

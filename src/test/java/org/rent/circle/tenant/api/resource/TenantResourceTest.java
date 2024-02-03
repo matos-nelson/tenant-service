@@ -192,6 +192,7 @@ public class TenantResourceTest {
     @UpdateTenantUser
     public void PATCH_WhenGivenRequestToUpdateTenantFailsValidation_ShouldReturnBadRequest() {
         // Arrange
+        long tenantId = 1L;
         UpdateTenantDto updateTenantDto = UpdateTenantDto.builder()
             .build();
 
@@ -201,7 +202,7 @@ public class TenantResourceTest {
             .contentType("application/json")
             .body(updateTenantDto)
             .when()
-            .patch()
+            .patch("/" + tenantId)
             .then()
             .statusCode(HttpStatus.SC_BAD_REQUEST);
     }
@@ -222,6 +223,8 @@ public class TenantResourceTest {
             .phone("9999999999")
             .preferredName("New Name")
             .vehicles(Collections.singletonList(vehicle))
+            .occupants(Collections.emptyList())
+            .pets(Collections.emptyList())
             .build();
 
         // Act
@@ -230,7 +233,7 @@ public class TenantResourceTest {
             .contentType("application/json")
             .body(updateTenantDto)
             .when()
-            .patch()
+            .patch("/" + tenantId)
             .then()
             .statusCode(HttpStatus.SC_NO_CONTENT);
 
@@ -250,7 +253,9 @@ public class TenantResourceTest {
                 "vehicles[0].model", is(vehicle.getModel()),
                 "vehicles[0].year", is(vehicle.getYear()),
                 "vehicles[0].color", is(vehicle.getColor()),
-                "vehicles[0].licenseNumber", is(vehicle.getLicenseNumber()));
+                "vehicles[0].licenseNumber", is(vehicle.getLicenseNumber()),
+                "occupants", is(Matchers.hasSize(0)),
+                "pets", is(Matchers.hasSize(0)));
     }
 
     @Retention(RetentionPolicy.RUNTIME)

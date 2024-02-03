@@ -50,7 +50,8 @@ public class TenantResource {
     }
 
     @PATCH
-    public void updateTenant(@Valid UpdateTenantDto updateTenantDto) {
-        tenantService.updateTenantInfo(jwt.getName(), updateTenantDto);
+    @Path("/{id}")
+    public void updateTenant(@NotNull @PathParam("id") long tenantId, @Valid UpdateTenantDto updateTenantDto) {
+        tenantService.updateTenantInfo(tenantId, jwt.getName(), updateTenantDto);
     }
 }

@@ -22,4 +22,10 @@ public class UpdateTenantDto {
 
     @NotNull
     private List<VehicleDto> vehicles;
+
+    @NotNull
+    private List<OccupantDto> occupants;
+
+    @NotNull
+    private List<PetDto> pets;
 }

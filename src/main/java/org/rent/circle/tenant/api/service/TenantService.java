@@ -44,8 +44,8 @@ public class TenantService {
     }
 
     @Transactional
-    public void updateTenantInfo(String userId, UpdateTenantDto updateTenantInfo) {
-        Tenant tenant = tenantRepository.findByUserId(userId);
+    public void updateTenantInfo(Long tenantId, String managerId, UpdateTenantDto updateTenantInfo) {
+        Tenant tenant = tenantRepository.findByIdAndManagerId(tenantId, managerId);
         if (tenant == null) {
             log.info("Could Not Find Tenant For Update");
             return;

@@ -14,11 +14,14 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.time.LocalDate;
 import java.util.Collections;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.rent.circle.tenant.api.annotation.AuthUser;
+import org.rent.circle.tenant.api.dto.OccupantDto;
+import org.rent.circle.tenant.api.dto.PetDto;
 import org.rent.circle.tenant.api.dto.SaveTenantInfoDto;
 import org.rent.circle.tenant.api.dto.UpdateTenantDto;
 import org.rent.circle.tenant.api.dto.VehicleDto;
@@ -28,7 +31,6 @@ import org.rent.circle.tenant.api.dto.VehicleDto;
 @QuarkusTestResource(H2DatabaseTestResource.class)
 @AuthUser
 public class TenantResourceTest {
-
 
     @Test
     public void Post_WhenGivenAValidRequestToSave_ShouldReturnSavedTenantId() {
@@ -40,6 +42,17 @@ public class TenantResourceTest {
             .color("Color")
             .licenseNumber("123-ABC")
             .build();
+        PetDto pet = PetDto.builder()
+            .name("Dog")
+            .breed("Boxer")
+            .weight(1)
+            .age((byte) 0)
+            .build();
+        OccupantDto occupant = OccupantDto.builder()
+            .firstName("First")
+            .lastName("Last")
+            .dateOfBirth(LocalDate.now())
+            .build();
         SaveTenantInfoDto saveTenantInfoDto = SaveTenantInfoDto.builder()
             .propertyId(1L)
             .userId("123")
@@ -48,6 +61,8 @@ public class TenantResourceTest {
             .email("simpletest@email.com")
             .phone("1234567890")
             .vehicles(Collections.singletonList(vehicle))
+            .pets(Collections.singletonList(pet))
+            .occupants(Collections.singletonList(occupant))
             .build();
 
         // Act
@@ -114,7 +129,17 @@ public class TenantResourceTest {
                 "vehicles[0].model", is("Rogue"),
                 "vehicles[0].year", is(2000),
                 "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenseNumber", is("AAA-123"));
+                "vehicles[0].licenseNumber", is("AAA-123"),
+                "pets", is(Matchers.hasSize(1)),
+                "pets[0].name", is("Dog"),
+                "pets[0].breed", is("Boxer"),
+                "pets[0].weight", is(15),
+                "pets[0].age", is(2),
+                "occupants", is(Matchers.hasSize(1)),
+                "occupants[0].firstName", is("First"),
+                "occupants[0].lastName", is("Occupant"),
+                "occupants[0].dateOfBirth", is("2010-10-10"));
+
     }
 
     @Test
@@ -151,7 +176,16 @@ public class TenantResourceTest {
                 "vehicles[0].model", is("Rogue"),
                 "vehicles[0].year", is(2000),
                 "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenseNumber", is("AAA-123"));
+                "vehicles[0].licenseNumber", is("AAA-123"),
+                "pets", is(Matchers.hasSize(1)),
+                "pets[0].name", is("Dog"),
+                "pets[0].breed", is("Boxer"),
+                "pets[0].weight", is(15),
+                "pets[0].age", is(2),
+                "occupants", is(Matchers.hasSize(1)),
+                "occupants[0].firstName", is("First"),
+                "occupants[0].lastName", is("Occupant"),
+                "occupants[0].dateOfBirth", is("2010-10-10"));
     }
 
     @Test

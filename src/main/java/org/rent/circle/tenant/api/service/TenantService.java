@@ -38,11 +38,6 @@ public class TenantService {
         return tenantMapper.toDto(tenant);
     }
 
-    public TenantDto getTenantByEmail(String email) {
-        Tenant tenant = tenantRepository.findByEmail(email);
-        return tenantMapper.toDto(tenant);
-    }
-
     @Transactional
     public void updateTenantInfo(Long tenantId, String managerId, UpdateTenantDto updateTenantInfo) {
         Tenant tenant = tenantRepository.findByIdAndManagerId(tenantId, managerId);

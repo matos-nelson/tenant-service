@@ -142,52 +142,6 @@ public class TenantResourceTest {
     }
 
     @Test
-    public void GET_WhenTenantCantBeFoundByEmail_ShouldReturnNoContent() {
-        // Arrange
-
-        // Act
-        // Assert
-        given()
-            .when()
-            .get("/email/notfound@email.com")
-            .then()
-            .statusCode(HttpStatus.SC_NO_CONTENT);
-    }
-
-    @Test
-    public void GET_WhenTenantIsFoundByEmail_ShouldReturnTenant() {
-        // Arrange
-
-        // Act
-        // Assert
-        given()
-            .when()
-            .get("/email/firsttenant@email.com")
-            .then()
-            .statusCode(HttpStatus.SC_OK)
-            .body("id", is(100),
-                "propertyId", is(1),
-                "fullName", is("First Tenant"),
-                "email", is("firsttenant@email.com"),
-                "phone", is("1234445555"),
-                "vehicles", is(Matchers.hasSize(1)),
-                "vehicles[0].make", is("Nissan"),
-                "vehicles[0].model", is("Rogue"),
-                "vehicles[0].year", is(2000),
-                "vehicles[0].color", is("Blue"),
-                "vehicles[0].licenseNumber", is("AAA-123"),
-                "pets", is(Matchers.hasSize(1)),
-                "pets[0].name", is("Dog"),
-                "pets[0].breed", is("Boxer"),
-                "pets[0].weight", is(15),
-                "pets[0].age", is(2),
-                "occupants", is(Matchers.hasSize(1)),
-                "occupants[0].firstName", is("First"),
-                "occupants[0].lastName", is("Occupant"),
-                "occupants[0].dateOfBirth", is("2010-10-10"));
-    }
-
-    @Test
     @UpdateTenantUser
     public void PATCH_WhenGivenRequestToUpdateTenantFailsValidation_ShouldReturnBadRequest() {
         // Arrange

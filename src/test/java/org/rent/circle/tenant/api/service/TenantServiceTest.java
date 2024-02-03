@@ -108,46 +108,6 @@ public class TenantServiceTest {
     }
 
     @Test
-    public void getTenantByEmail_WhenTenantWithGivenIdCantBeFound_ShouldReturnNull() {
-        // Arrange
-        String tenantEmail = "tenant@email.com";
-        when(tenantRepository.findByEmail(tenantEmail)).thenReturn(null);
-        when(tenantMapper.toDto(null)).thenReturn(null);
-
-        // Act
-        TenantDto result = tenantService.getTenantByEmail(tenantEmail);
-
-        // Assert
-        assertNull(result);
-    }
-
-    @Test
-    public void getTenantByEmail_WhenCalled_ShouldReturnTenant() {
-        // Arrange
-        String tenantEmail = "tenant@email.com";
-
-        Tenant tenant = new Tenant();
-        tenant.setId(100L);
-        tenant.setEmail(tenantEmail);
-
-        TenantDto tenantDto = TenantDto.builder()
-            .propertyId(1L)
-            .fullName("My Tenant")
-            .email("tenant@email.com")
-            .phone("1234567890")
-            .build();
-
-        when(tenantRepository.findByEmail(tenantEmail)).thenReturn(tenant);
-        when(tenantMapper.toDto(tenant)).thenReturn(tenantDto);
-
-        // Act
-        TenantDto result = tenantService.getTenantByEmail(tenantEmail);
-
-        // Assert
-        assertEquals(tenantDto, result);
-    }
-
-    @Test
     public void updateTenant_WhenTenantIsNotFound_ShouldReturnNotUpdate() {
         // Arrange
         Long tenantId = 1L;

@@ -20,30 +20,6 @@ public class TenantRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findTenantByEmail_WhenTenantDoesNotExist_ShouldReturnNull() {
-        // Arrange
-
-        // Act
-        Tenant result = tenantRepository.findByEmail("notfound@email.com");
-
-        // Assert
-        assertNull(result);
-    }
-
-    @Test
-    @TestTransaction
-    public void findTenantByEmail_WhenTenantDoesExist_ShouldReturnTenant() {
-        // Arrange
-
-        // Act
-        Tenant result = tenantRepository.findByEmail("firsttenant@email.com");
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
-    @TestTransaction
     public void findTenantByIdAndManagerId_WhenTenantDoesNotExist_ShouldReturnNull() {
         // Arrange
 

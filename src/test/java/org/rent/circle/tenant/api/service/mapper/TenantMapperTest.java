@@ -6,10 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.rent.circle.tenant.api.dto.OccupantDto;
+import org.rent.circle.tenant.api.dto.PetDto;
 import org.rent.circle.tenant.api.dto.SaveTenantInfoDto;
 import org.rent.circle.tenant.api.dto.TenantDto;
 import org.rent.circle.tenant.api.dto.UpdateTenantDto;
@@ -84,6 +87,56 @@ public class TenantMapperTest {
         assertEquals(vehicle.getYear(), result.getVehicles().get(0).getYear());
         assertEquals(vehicle.getColor(), result.getVehicles().get(0).getColor());
         assertEquals(vehicle.getLicenseNumber(), result.getVehicles().get(0).getLicenseNumber());
+    }
+
+    @Test
+    public void toModel_WhenGivenADtoWithPets_ShouldMap() {
+        // Arrange
+        PetDto pet = PetDto.builder()
+            .age((byte) 1)
+            .breed("dog")
+            .weight(10)
+            .name("My Dog")
+            .build();
+
+        SaveTenantInfoDto saveTenantInfo = SaveTenantInfoDto.builder()
+            .pets(Collections.singletonList(pet))
+            .build();
+
+        // Act
+        Tenant result = tenantMapper.toModel(saveTenantInfo);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getPets().size());
+        assertEquals(pet.getBreed(), result.getPets().get(0).getBreed());
+        assertEquals(pet.getAge(), result.getPets().get(0).getAge());
+        assertEquals(pet.getWeight(), result.getPets().get(0).getWeight());
+        assertEquals(pet.getName(), result.getPets().get(0).getName());
+    }
+
+    @Test
+    public void toModel_WhenGivenADtoWithOccupants_ShouldMap() {
+        // Arrange
+        OccupantDto occupant = OccupantDto.builder()
+            .dateOfBirth(LocalDate.now())
+            .firstName("My")
+            .lastName("Occupant")
+            .build();
+
+        SaveTenantInfoDto saveTenantInfo = SaveTenantInfoDto.builder()
+            .occupants(Collections.singletonList(occupant))
+            .build();
+
+        // Act
+        Tenant result = tenantMapper.toModel(saveTenantInfo);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.getOccupants().size());
+        assertEquals(occupant.getFirstName(), result.getOccupants().get(0).getFirstName());
+        assertEquals(occupant.getLastName(), result.getOccupants().get(0).getLastName());
+        assertEquals(occupant.getDateOfBirth(), result.getOccupants().get(0).getDateOfBirth());
     }
 
     @Test

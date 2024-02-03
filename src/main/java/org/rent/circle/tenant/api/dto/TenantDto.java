@@ -21,4 +21,6 @@ public class TenantDto {
     private String email;
     private String phone;
     private List<VehicleDto> vehicles;
+    private List<PetDto> pets;
+    private List<OccupantDto> occupants;
 }

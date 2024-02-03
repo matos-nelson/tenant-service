@@ -37,4 +37,8 @@ public class SaveTenantInfoDto {
     private String phone;
 
     private List<VehicleDto> vehicles;
+
+    private List<OccupantDto> occupants;
+
+    private List<PetDto> pets;
 }

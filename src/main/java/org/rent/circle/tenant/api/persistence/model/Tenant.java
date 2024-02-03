@@ -49,4 +49,12 @@ public class Tenant extends BaseModel {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
     private List<Vehicle> vehicles;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+    private List<Pet> pets;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+    private List<Occupant> occupants;
 }

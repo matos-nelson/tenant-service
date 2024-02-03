@@ -20,9 +20,6 @@ public class SaveTenantInfoDto {
     @NotNull
     private Long propertyId;
 
-    @NotNull
-    private String userId;
-
     private String preferredName;
 
     @NotNull

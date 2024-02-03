@@ -42,7 +42,6 @@ public class TenantMapperTest {
         // Arrange
         SaveTenantInfoDto saveTenantInfo = SaveTenantInfoDto.builder()
             .propertyId(1L)
-            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -55,7 +54,6 @@ public class TenantMapperTest {
         // Assert
         assertNotNull(result);
         assertEquals(saveTenantInfo.getPropertyId(), result.getPropertyId());
-        assertEquals(saveTenantInfo.getUserId(), result.getUserId());
         assertEquals(saveTenantInfo.getPreferredName(), result.getPreferredName());
         assertEquals(saveTenantInfo.getFullName(), result.getFullName());
         assertEquals(saveTenantInfo.getEmail(), result.getEmail());

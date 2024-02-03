@@ -44,30 +44,6 @@ public class TenantRepositoryTest {
 
     @Test
     @TestTransaction
-    public void findTenantByUserId_WhenTenantDoesNotExist_ShouldReturnNull() {
-        // Arrange
-
-        // Act
-        Tenant result = tenantRepository.findByUserId("invalid_user");
-
-        // Assert
-        assertNull(result);
-    }
-
-    @Test
-    @TestTransaction
-    public void findTenantByUserId_WhenTenantDoesExist_ShouldReturnTenant() {
-        // Arrange
-
-        // Act
-        Tenant result = tenantRepository.findByUserId("auth_user");
-
-        // Assert
-        assertNotNull(result);
-    }
-
-    @Test
-    @TestTransaction
     public void findTenantByIdAndManagerId_WhenTenantDoesNotExist_ShouldReturnNull() {
         // Arrange
 

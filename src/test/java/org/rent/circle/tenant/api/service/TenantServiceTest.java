@@ -47,7 +47,6 @@ public class TenantServiceTest {
             .build();
         SaveTenantInfoDto saveTenantInfo = SaveTenantInfoDto.builder()
             .propertyId(1L)
-            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -172,7 +171,6 @@ public class TenantServiceTest {
 
         Tenant tenant = new Tenant();
         tenant.setId(tenantId);
-        tenant.setUserId(managerId);
 
         UpdateTenantDto updateTenantDto = UpdateTenantDto.builder()
             .preferredName("Updated Name")

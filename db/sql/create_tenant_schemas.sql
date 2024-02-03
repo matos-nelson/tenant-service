@@ -2,7 +2,6 @@ CREATE TABLE IF NOT EXISTS tenant (
   id bigint PRIMARY KEY AUTO_INCREMENT,
   manager_id varchar(255) NOT NULL,
   property_id bigint NOT NULL,
-  user_id varchar(255) NOT NULL,
   preferred_name varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   full_name varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   email varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
@@ -11,7 +10,6 @@ CREATE TABLE IF NOT EXISTS tenant (
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY manager_id_idx (manager_id),
   KEY property_id_idx (property_id),
-  UNIQUE KEY user_id_idx (user_id),
   INDEX email_idx (email)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

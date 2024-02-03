@@ -55,7 +55,6 @@ public class TenantResourceTest {
             .build();
         SaveTenantInfoDto saveTenantInfoDto = SaveTenantInfoDto.builder()
             .propertyId(1L)
-            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")

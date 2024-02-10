@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS tenant (
   created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   KEY manager_id_idx (manager_id),
-  KEY property_id_idx (property_id),
-  INDEX email_idx (email)
+  KEY property_id_idx (property_id)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS tenant_vehicle (

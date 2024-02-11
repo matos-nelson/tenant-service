@@ -2,8 +2,6 @@ package org.rent.circle.tenant.api.resource;
 
 import io.quarkus.security.Authenticated;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -43,14 +41,9 @@ public class TenantResource {
         return tenantService.getTenant(tenantId, jwt.getName());
     }
 
-    @GET
-    @Path("/email/{email}")
-    public TenantDto getTenant(@NotNull @NotBlank @Email @PathParam("email") String tenantEmail) {
-        return tenantService.getTenantByEmail(tenantEmail);
-    }
-
     @PATCH
-    public void updateTenant(@Valid UpdateTenantDto updateTenantDto) {
-        tenantService.updateTenantInfo(jwt.getName(), updateTenantDto);
+    @Path("/{id}")
+    public void updateTenant(@NotNull @PathParam("id") long tenantId, @Valid UpdateTenantDto updateTenantDto) {
+        tenantService.updateTenantInfo(tenantId, jwt.getName(), updateTenantDto);
     }
 }

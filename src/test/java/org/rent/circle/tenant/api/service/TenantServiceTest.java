@@ -47,7 +47,6 @@ public class TenantServiceTest {
             .build();
         SaveTenantInfoDto saveTenantInfo = SaveTenantInfoDto.builder()
             .propertyId(1L)
-            .userId("123")
             .preferredName("Preferred Name")
             .fullName("Simple Test")
             .email("simpletest@email.com")
@@ -109,54 +108,15 @@ public class TenantServiceTest {
     }
 
     @Test
-    public void getTenantByEmail_WhenTenantWithGivenIdCantBeFound_ShouldReturnNull() {
-        // Arrange
-        String tenantEmail = "tenant@email.com";
-        when(tenantRepository.findByEmail(tenantEmail)).thenReturn(null);
-        when(tenantMapper.toDto(null)).thenReturn(null);
-
-        // Act
-        TenantDto result = tenantService.getTenantByEmail(tenantEmail);
-
-        // Assert
-        assertNull(result);
-    }
-
-    @Test
-    public void getTenantByEmail_WhenCalled_ShouldReturnTenant() {
-        // Arrange
-        String tenantEmail = "tenant@email.com";
-
-        Tenant tenant = new Tenant();
-        tenant.setId(100L);
-        tenant.setEmail(tenantEmail);
-
-        TenantDto tenantDto = TenantDto.builder()
-            .propertyId(1L)
-            .fullName("My Tenant")
-            .email("tenant@email.com")
-            .phone("1234567890")
-            .build();
-
-        when(tenantRepository.findByEmail(tenantEmail)).thenReturn(tenant);
-        when(tenantMapper.toDto(tenant)).thenReturn(tenantDto);
-
-        // Act
-        TenantDto result = tenantService.getTenantByEmail(tenantEmail);
-
-        // Assert
-        assertEquals(tenantDto, result);
-    }
-
-    @Test
     public void updateTenant_WhenTenantIsNotFound_ShouldReturnNotUpdate() {
         // Arrange
-        String userId = "123";
+        Long tenantId = 1L;
+        String managerId = "123";
         UpdateTenantDto updateTenantDto = UpdateTenantDto.builder().build();
-        when(tenantRepository.findByUserId(userId)).thenReturn(null);
+        when(tenantRepository.findByIdAndManagerId(tenantId, managerId)).thenReturn(null);
 
         // Act
-        tenantService.updateTenantInfo(userId, updateTenantDto);
+        tenantService.updateTenantInfo(tenantId, managerId, updateTenantDto);
 
         // Assert
         verify(tenantMapper, never()).update(updateTenantDto, null);
@@ -166,20 +126,20 @@ public class TenantServiceTest {
     @Test
     public void updateTenantInfo_WhenCalled_ShouldUpdate() {
         // Arrange
-        String userId = "123";
+        Long tenantId = 1L;
+        String managerId = "123";
 
         Tenant tenant = new Tenant();
-        tenant.setId(1L);
-        tenant.setUserId(userId);
+        tenant.setId(tenantId);
 
         UpdateTenantDto updateTenantDto = UpdateTenantDto.builder()
             .preferredName("Updated Name")
             .phone("9876543210")
             .build();
-        when(tenantRepository.findByUserId(userId)).thenReturn(tenant);
+        when(tenantRepository.findByIdAndManagerId(tenantId, managerId)).thenReturn(tenant);
 
         // Act
-        tenantService.updateTenantInfo(userId, updateTenantDto);
+        tenantService.updateTenantInfo(tenantId, managerId, updateTenantDto);
 
         // Assert
         verify(tenantMapper, times(1)).update(updateTenantDto, tenant);

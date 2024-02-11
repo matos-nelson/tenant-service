@@ -20,9 +20,6 @@ public class SaveTenantInfoDto {
     @NotNull
     private Long propertyId;
 
-    @NotNull
-    private String userId;
-
     private String preferredName;
 
     @NotNull
@@ -37,4 +34,8 @@ public class SaveTenantInfoDto {
     private String phone;
 
     private List<VehicleDto> vehicles;
+
+    private List<OccupantDto> occupants;
+
+    private List<PetDto> pets;
 }

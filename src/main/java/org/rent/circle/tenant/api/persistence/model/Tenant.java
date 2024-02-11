@@ -31,9 +31,6 @@ public class Tenant extends BaseModel {
     @Column(name = "property_id")
     private Long propertyId;
 
-    @Column(name = "user_id")
-    private String userId;
-
     @Column(name = "preferred_name")
     private String preferredName;
 
@@ -49,4 +46,12 @@ public class Tenant extends BaseModel {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
     private List<Vehicle> vehicles;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+    private List<Pet> pets;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id", nullable = false)
+    private List<Occupant> occupants;
 }

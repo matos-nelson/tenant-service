@@ -1,7 +1,8 @@
 package org.rent.circle.tenant.api.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,19 +14,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateTenantDto {
-
-    private String preferredName;
+public class OccupantDto {
 
     @NotNull
-    private String phone;
+    @NotBlank
+    private String firstName;
 
     @NotNull
-    private List<VehicleDto> vehicles;
+    @NotBlank
+    private String lastName;
 
     @NotNull
-    private List<OccupantDto> occupants;
-
-    @NotNull
-    private List<PetDto> pets;
+    private LocalDate dateOfBirth;
 }
